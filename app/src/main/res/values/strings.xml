@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TaKotlin</string>
+    <string name="refresh_label">Refresh</string>
 </resources>
