@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TaKotlin</string>
+    <string name="random_taco_screen_label">Random</string>
     <string name="refresh_label">Refresh</string>
 </resources>

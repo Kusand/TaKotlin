@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        supportActionBar.setTitle(R.string.random_taco_screen_label)
         setContentView(verticalLayout {
             tacoRecipe = textView()
             button {
