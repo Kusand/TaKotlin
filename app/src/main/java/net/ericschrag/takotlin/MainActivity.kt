@@ -7,19 +7,24 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import net.ericschrag.takotlin.model.Recipe
+import net.ericschrag.takotlin.model.RecipeModel
+import net.ericschrag.takotlin.presenter.RecipeViewPresenter
+import net.ericschrag.takotlin.view.RecipeView
 import org.jetbrains.anko.*
 
 class MainActivity : AppCompatActivity() {
     // https://github.com/evz/tacofancy-api
-    var tacoRecipe: TextView? = null
+    val recipeViewPresenter : RecipeViewPresenter = RecipeViewPresenter()
+    val recipeModel : RecipeModel = RecipeModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         supportActionBar.setTitle(R.string.random_taco_screen_label)
-        setContentView(verticalLayout {
-            tacoRecipe = textView()
-        })
+        val recipeView = RecipeView()
+        recipeView.setContentView(this)
+        recipeViewPresenter.attachView(recipeView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -32,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         if (item != null) {
             when (item.itemId) {
                 R.id.refresh_action -> {
-                    tacoRecipe!!.text = "Cook ground beef for " + System.currentTimeMillis() + "ms and place in taco shell"
+                    recipeViewPresenter.onRecipeLoaded(recipeModel.getRandomRecipe())
                     return true
                 }
                 else -> return super.onOptionsItemSelected(item)
