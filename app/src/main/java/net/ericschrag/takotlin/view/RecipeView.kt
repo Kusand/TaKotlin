@@ -12,6 +12,7 @@ class RecipeView : AnkoComponent<Activity> {
     override fun createView(ui: AnkoContext<Activity>): View {
         return with(ui) {
             verticalLayout {
+                padding = dip(16)
                 recipeTitle = textView{setTextAppearance(R.style.recipe_name)}
             }
         }
