@@ -29,6 +29,15 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'org.jetbrains.anko:anko-sdk15:0.8'
+    compile 'org.jetbrains.anko:anko-appcompat-v7:0.8'
+
+
+    compile 'io.reactivex:rxandroid:1.1.0'
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-kotlin:0.3.0'
+    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7-kotlin:0.3.0'
 }
 buildscript {
     ext.kotlin_version = '1.0.0-beta-3595'
