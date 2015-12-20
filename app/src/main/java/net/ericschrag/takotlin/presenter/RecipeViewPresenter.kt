@@ -10,7 +10,12 @@ class RecipeViewPresenter {
         this.recipeView = recipeView
     }
 
+    fun onLoadStarted() {
+        recipeView?.showLoading(true)
+    }
+
     fun onRecipeLoaded(recipe: Recipe) {
+        recipeView?.showLoading(false)
         recipeView?.showTitle(recipe.name)
     }
 }

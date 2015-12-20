@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         toolbarItemClickSubscription = RxToolbar.itemClicks(toolbar).subscribe({
                 when (it.itemId) {
                     R.id.refresh_action -> {
+                        recipeViewPresenter.onLoadStarted()
                         recipeViewPresenter.onRecipeLoaded(recipeModel.getRandomRecipe())
                     }
                 }

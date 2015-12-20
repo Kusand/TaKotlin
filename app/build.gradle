@@ -38,6 +38,8 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'com.jakewharton.rxbinding:rxbinding-kotlin:0.3.0'
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7-kotlin:0.3.0'
+
+    compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
 }
 buildscript {
     ext.kotlin_version = '1.0.0-beta-3595'
