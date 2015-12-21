@@ -59,4 +59,7 @@ class RecipeView : AnkoComponent<Activity> {
         recipeTitle?.setText(title)
     }
 
+    fun clear() {
+        recipeTitle?.text = ""
+    }
 }

@@ -12,6 +12,7 @@ class RecipeViewPresenter {
 
     fun onLoadStarted() {
         recipeView?.showLoading(true)
+        recipeView?.clear()
     }
 
     fun onRecipeLoaded(recipe: Recipe) {
