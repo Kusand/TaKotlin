@@ -12,6 +12,8 @@ class RecipeView : AnkoComponent<Activity> {
     var loadingIndicator: SmoothProgressBar? = null
     var recipeTitle: TextView? = null
 
+    var indicatorRunning: Boolean = false
+
     override fun createView(ui: AnkoContext<Activity>): View {
         return with(ui) {
             verticalLayout {
@@ -41,13 +43,19 @@ class RecipeView : AnkoComponent<Activity> {
     fun showLoading(show: Boolean) {
         if (show) {
             loadingIndicator?.visibility = View.VISIBLE
-            loadingIndicator?.progressiveStart()
+            if (!indicatorRunning) {
+                indicatorRunning = true
+                loadingIndicator?.progressiveStart()
+            }
         } else {
-            loadingIndicator?.progressiveStop()
+            if (indicatorRunning) {
+                loadingIndicator?.progressiveStop()
+                indicatorRunning = false
+            }
         }
     }
 
-    fun showTitle(title : String) {
+    fun showTitle(title: String) {
         recipeTitle?.setText(title)
     }
 
