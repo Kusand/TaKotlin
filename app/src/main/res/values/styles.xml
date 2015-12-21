@@ -9,4 +9,5 @@
     </style>
 
     <style name="recipe_name" parent="TextAppearance.AppCompat.Title" />
+    <style name="recipe_blurb" parent="TextAppearance.AppCompat.Subhead" />
 </resources>

@@ -11,6 +11,7 @@ import org.jetbrains.anko.appcompat.v7.toolbar
 class RecipeView : AnkoComponent<Activity> {
     var loadingIndicator: SmoothProgressBar? = null
     var recipeTitle: TextView? = null
+    var recipeBlurb: TextView? = null
 
     var indicatorRunning: Boolean = false
 
@@ -32,9 +33,12 @@ class RecipeView : AnkoComponent<Activity> {
                 }
 
                 verticalLayout {
-                    padding = dip(16)
+                    setPadding(dip(16), 0, dip(16), 0)
 
                     recipeTitle = textView { setTextAppearance(R.style.recipe_name) }
+                    scrollView {
+                        recipeBlurb = textView { setTextAppearance(R.style.recipe_blurb) }
+                    }
                 }
             }
         }
@@ -59,7 +63,12 @@ class RecipeView : AnkoComponent<Activity> {
         recipeTitle?.setText(title)
     }
 
+    fun showBlurb(blurb: String) {
+        recipeBlurb?.text = blurb
+    }
+
     fun clear() {
         recipeTitle?.text = ""
+        recipeBlurb?.text = ""
     }
 }

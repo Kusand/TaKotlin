@@ -1,3 +1,3 @@
 package net.ericschrag.takotlin.model
 
-data class Recipe (val name: String)
+data class Recipe (val name: String, val recipe: String)

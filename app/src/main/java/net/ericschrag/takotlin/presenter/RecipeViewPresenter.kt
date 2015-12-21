@@ -18,5 +18,6 @@ class RecipeViewPresenter {
     fun onRecipeLoaded(recipe: Recipe) {
         recipeView?.showLoading(false)
         recipeView?.showTitle(recipe.name)
+        recipeView?.showBlurb(recipe.recipe)
     }
 }
