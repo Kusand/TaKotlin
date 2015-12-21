@@ -10,6 +10,8 @@ import net.ericschrag.takotlin.presenter.RecipeViewPresenter
 import net.ericschrag.takotlin.view.RecipeView
 import org.jetbrains.anko.*
 import rx.Subscription
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
     // https://github.com/evz/tacofancy-api
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     val recipeModel : RecipeModel = RecipeModel()
 
     var toolbarItemClickSubscription : Subscription? = null
+    var randomRecipeSubscription : Subscription? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +36,12 @@ class MainActivity : AppCompatActivity() {
                 when (it.itemId) {
                     R.id.refresh_action -> {
                         recipeViewPresenter.onLoadStarted()
-                        recipeViewPresenter.onRecipeLoaded(recipeModel.getRandomRecipe())
+                        randomRecipeSubscription?.unsubscribe()
+                        randomRecipeSubscription =
+                                recipeModel.getRandomRecipe()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({recipeViewPresenter.onRecipeLoaded(it)})
                     }
                 }
             })
@@ -42,6 +50,11 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         toolbarItemClickSubscription?.unsubscribe()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        randomRecipeSubscription?.unsubscribe()
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
