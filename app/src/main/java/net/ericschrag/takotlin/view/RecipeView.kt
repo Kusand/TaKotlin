@@ -24,6 +24,7 @@ class RecipeView : AnkoComponent<Activity> {
                     lparams(width = matchParent, height = wrapContent)
                 }
                 loadingIndicator = smoothProgressBar {
+                    backgroundResource = R.color.colorPrimary
                     lparams(width = matchParent, height = wrapContent)
                     isIndeterminate = true
                     // The below are a workaround for the fact that setting indeterminate to true
@@ -32,11 +33,11 @@ class RecipeView : AnkoComponent<Activity> {
                     progressiveStop()
                 }
 
-                verticalLayout {
-                    setPadding(dip(16), 0, dip(16), 0)
+                scrollView {
+                    verticalLayout {
+                        setPadding(dip(16), 0, dip(16), 0)
 
-                    recipeTitle = textView { setTextAppearance(R.style.recipe_name) }
-                    scrollView {
+                        recipeTitle = textView { setTextAppearance(R.style.recipe_name) }
                         recipeBlurb = textView { setTextAppearance(R.style.recipe_blurb) }
                     }
                 }
