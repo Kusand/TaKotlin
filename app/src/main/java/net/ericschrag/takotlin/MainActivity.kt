@@ -6,7 +6,8 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import com.jakewharton.rxbinding.support.v7.widget.RxToolbar
 import net.ericschrag.takotlin.model.RecipeModel
-import net.ericschrag.takotlin.presenter.RecipeViewPresenter
+import net.ericschrag.takotlin.presenter.presentLoadStarted
+import net.ericschrag.takotlin.presenter.presentRecipe
 import net.ericschrag.takotlin.view.RecipeView
 import org.jetbrains.anko.*
 import rx.Subscription
@@ -15,7 +16,6 @@ import rx.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
     // https://github.com/evz/tacofancy-api
-    val recipeViewPresenter : RecipeViewPresenter = RecipeViewPresenter()
     val recipeModel : RecipeModel = RecipeModel()
 
     var toolbarItemClickSubscription : Subscription? = null
@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         val recipeView = RecipeView()
         recipeView.setContentView(this)
-        recipeViewPresenter.attachView(recipeView)
 
         val toolbar : Toolbar = findViewById(R.id.toolbar) as Toolbar
         toolbar.setTitle(R.string.random_taco_screen_label)
@@ -35,13 +34,13 @@ class MainActivity : AppCompatActivity() {
         toolbarItemClickSubscription = RxToolbar.itemClicks(toolbar).subscribe({
                 when (it.itemId) {
                     R.id.refresh_action -> {
-                        recipeViewPresenter.onLoadStarted()
+                        recipeView.presentLoadStarted()
                         randomRecipeSubscription?.unsubscribe()
                         randomRecipeSubscription =
                                 recipeModel.getRandomRecipe()
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe({recipeViewPresenter.onRecipeLoaded(it)})
+                                .subscribe({recipeView.presentRecipe(it)})
                     }
                 }
             })
