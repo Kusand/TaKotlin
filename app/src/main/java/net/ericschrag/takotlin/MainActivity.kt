@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.Menu
+import android.widget.Toast
 import com.jakewharton.rxbinding.support.v7.widget.RxToolbar
 import net.ericschrag.takotlin.model.RecipeModel
 import net.ericschrag.takotlin.presenter.presentLoadStarted
@@ -40,7 +41,10 @@ class MainActivity : AppCompatActivity() {
                                 recipeModel.getRandomRecipe()
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe({recipeView.presentRecipe(it)})
+                                .subscribe({recipeView.presentRecipe(it)},
+                                           {recipeView.clear()
+                                            recipeView.showLoading(false)
+                                            Toast.makeText(this, "Error loading recipe", Toast.LENGTH_SHORT).show()})
                     }
                 }
             })
